@@ -1,7 +1,9 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-char *read_dynamic_string(char *prompt);
-int read_integer(char *prompt);
+#include <stddef.h>
+#define MAX_BUFFER_SIZE 255
+
+char *read_string_input(char *prompt);
 
 #endif

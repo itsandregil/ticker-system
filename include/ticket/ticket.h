@@ -17,7 +17,7 @@ typedef struct Ticket {
 complaint_t get_complaint_from_input(int value);
 ticket_t create_new_ticket(int id_number, char *email, complaint_t complaint_type);
 void save_ticket(ticket_t *ticket);
-void destroy_ticket(ticket_t *ticket);
+void free_ticket(ticket_t *ticket);
 void print_ticket(ticket_t *ticket);
 
 #endif
