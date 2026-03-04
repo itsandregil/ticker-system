@@ -84,3 +84,8 @@ Temporary Items
 ### macOS Patch ###
 # iCloud generated files
 *.icloud
+
+# Other Files and Directories
+.cache/
+build/
+*program*
