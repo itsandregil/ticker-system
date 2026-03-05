@@ -3,22 +3,41 @@
 #include <stdlib.h>
 #include <string.h>
 
-// TODO: Implement more validation for input strings
-
-/*
- * A function that reads a string from the terminal using
- * a custom prompt.
- */
-char *read_string_input(char *prompt){
+char *read_string_input(char *prompt, int (*cb)(char *)) {
   char *s = malloc((MAX_BUFFER_SIZE + 1) * sizeof(char));
   if (s == NULL) {
     return NULL;
   }
   printf("%s\n", prompt);
   fgets(s, MAX_BUFFER_SIZE, stdin);
-  if (strlen(s) == 0) {
+  if (cb(s) != 0) {
     free(s);
-    return NULL;
+    exit(1);
   }
   return s;
+}
+
+int validate_is_not_empty(char *string) {
+  if (strlen(string) - 1 > 0) {
+    return 0;
+  }
+  printf("Field cannot be empty!\n");
+  return 1;
+}
+
+int validate_email(char *string) {
+  if (validate_is_not_empty(string) && strchr(string, '@') != NULL) {
+    return 0;
+  }
+  printf("Invalid email format\n");
+  return 1;
+}
+
+int validate_id(char *string) {
+  size_t len = strlen(string) - 1;
+  if (validate_is_not_empty(string) && len >= 8 && len <= 10) {
+    return 0;
+  }
+  printf("Not a valid ID: must be between 8 and 10 characters\n");
+  return 1;
 }
