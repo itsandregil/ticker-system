@@ -8,7 +8,7 @@ char *read_string_input(char *prompt, int (*cb)(char *)) {
   if (s == NULL) {
     return NULL;
   }
-  printf("%s\n", prompt);
+  printf("%s:\n", prompt);
   fgets(s, MAX_BUFFER_SIZE, stdin);
   if (cb(s) != 0) {
     free(s);
@@ -17,7 +17,7 @@ char *read_string_input(char *prompt, int (*cb)(char *)) {
   return s;
 }
 
-int validate_is_not_empty(char *string) {
+int is_not_empty(char *string) {
   if (strlen(string) - 1 > 0) {
     return 0;
   }
@@ -25,17 +25,17 @@ int validate_is_not_empty(char *string) {
   return 1;
 }
 
-int validate_email(char *string) {
-  if (validate_is_not_empty(string) && strchr(string, '@') != NULL) {
+int is_valid_email(char *string) {
+  if (is_not_empty(string) == 0 && strchr(string, '@') != NULL) {
     return 0;
   }
   printf("Invalid email format\n");
   return 1;
 }
 
-int validate_id(char *string) {
+int is_valid_id(char *string) {
   size_t len = strlen(string) - 1;
-  if (validate_is_not_empty(string) && len >= 8 && len <= 10) {
+  if (is_not_empty(string) == 0 && len >= 8 && len <= 10) {
     return 0;
   }
   printf("Not a valid ID: must be between 8 and 10 characters\n");
