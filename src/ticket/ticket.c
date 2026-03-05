@@ -11,11 +11,12 @@ ticket_t *new_ticket() {
     return NULL;
   }
 
-  char *id = read_string_input("Ingresa tu ID", is_valid_id);
+  char *user_id = read_string_input("Ingresa tu ID", is_valid_id);
   char *email = read_string_input("Ingresa tu email", is_valid_email);
   char *description = read_string_input("Describe tu reclamo", is_not_empty);
 
-  ticket->id = id;
+  ticket->id = generate_random_id();
+  ticket->user_id = user_id;
   ticket->email = email;
   ticket->description = description;
   return ticket;
@@ -33,8 +34,7 @@ char *generate_filename() {
   if (filename == NULL) {
     return NULL;
   }
-  srand(time(NULL));
-  sprintf(filename, "assets/ticket_%d.txt", rand());
+  sprintf(filename, "assets/ticket_%d.txt", generate_random_id());
   return filename;
 }
 
@@ -57,9 +57,10 @@ void write_ticket(char *filename, ticket_t *ticket) {
     free(filename);
     return;
   }
-  fprintf(file, "ID: %s", ticket->id);
-  fprintf(file, "Email: %s", ticket->email);
-  fprintf(file, "Description: %s", ticket->description);
+  fprintf(file, "Radicado: %d\n", ticket->id);
+  fprintf(file, "Identificación: %s", ticket->user_id);
+  fprintf(file, "Correo: %s", ticket->email);
+  fprintf(file, "Descripcion Reclamo: %s", ticket->description);
   fclose(file);
   free(filename);
 }

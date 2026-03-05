@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 char *read_string_input(char *prompt, int (*cb)(char *)) {
   char *s = malloc((MAX_BUFFER_SIZE + 1) * sizeof(char));
@@ -40,4 +41,9 @@ int is_valid_id(char *string) {
   }
   printf("Not a valid ID: must be between 8 and 10 characters\n");
   return 1;
+}
+
+int generate_random_id() {
+  srand(time(NULL));
+  return rand();
 }

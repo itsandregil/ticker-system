@@ -2,7 +2,8 @@
 #define TICKET_H
 
 typedef struct Ticket {
-    char *id;
+    int id;
+    char *user_id;
     char *email;
     char *description;
 } ticket_t;
