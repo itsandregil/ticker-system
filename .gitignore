@@ -88,4 +88,5 @@ Temporary Items
 # Other Files and Directories
 .cache/
 build/
+assets/
 *program*
