@@ -1,5 +1,6 @@
 #include "ticket/ticket.h"
 #include "utils/utils.h"
+#include "utils/validation.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -10,15 +11,14 @@ ticket_t *new_ticket() {
   if (ticket == NULL) {
     return NULL;
   }
-
-  char *user_id = read_string_input("Ingresa tu ID", is_valid_id);
-  char *email = read_string_input("Ingresa tu email", is_valid_email);
-  char *description = read_string_input("Describe tu reclamo", is_not_empty);
-
+  ticket->user_id = read_string_input("Ingresa tu ID", is_valid_id);
+  ticket->email = read_string_input("Ingresa tu email", is_valid_email);
+  ticket->description = read_string_input("Describe tu reclamo", is_valid_desc);
+  if (!ticket->user_id || !ticket->email || !ticket->description) {
+    free_ticket(ticket);
+    return NULL;
+  }
   ticket->id = generate_random_id();
-  ticket->user_id = user_id;
-  ticket->email = email;
-  ticket->description = description;
   return ticket;
 }
 
@@ -26,6 +26,9 @@ void free_ticket(ticket_t *ticket) {
   if (ticket == NULL) {
     return;
   }
+  free(ticket->user_id);
+  free(ticket->email);
+  free(ticket->description);
   free(ticket);
 }
 
@@ -58,9 +61,9 @@ void write_ticket(char *filename, ticket_t *ticket) {
     return;
   }
   fprintf(file, "Radicado: %d\n", ticket->id);
-  fprintf(file, "Identificación: %s", ticket->user_id);
-  fprintf(file, "Correo: %s", ticket->email);
-  fprintf(file, "Descripcion Reclamo: %s", ticket->description);
+  fprintf(file, "Identificación: %s\n", ticket->user_id);
+  fprintf(file, "Correo: %s\n", ticket->email);
+  fprintf(file, "Descripcion Reclamo: %s\n", ticket->description);
   fclose(file);
   free(filename);
 }
