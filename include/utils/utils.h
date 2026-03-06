@@ -3,7 +3,7 @@
 
 #include "validation.h"
 #include <stddef.h>
-#define MAX_BUFFER_SIZE 255
+#define MAX_BUFFER_SIZE 500
 
 char *read_string_input(char *prompt, validate_fn validate);
 int generate_random_id();

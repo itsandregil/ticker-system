@@ -7,11 +7,10 @@
 #include <time.h>
 
 char *read_string_input(char *prompt, validate_fn validate) {
-  char *s = malloc((MAX_BUFFER_SIZE + 1) * sizeof(char));
+  char *s = malloc(MAX_BUFFER_SIZE + 1);
   if (s == NULL) {
     return NULL;
   }
-
   while (1) {
     printf("%s: ", prompt);
     if (!fgets(s, MAX_BUFFER_SIZE, stdin)) {
