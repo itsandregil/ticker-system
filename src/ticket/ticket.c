@@ -11,9 +11,9 @@ ticket_t *new_ticket() {
   if (ticket == NULL) {
     return NULL;
   }
-  ticket->user_id = read_string_input("Ingresa tu ID", is_valid_id);
-  ticket->email = read_string_input("Ingresa tu email", is_valid_email);
-  ticket->description = read_string_input("Describe tu reclamo", is_valid_desc);
+  ticket->user_id = read_string_input("Enter your ID number", is_valid_id);
+  ticket->email = read_string_input("Enter your email address", is_valid_email);
+  ticket->description = read_string_input("Describe your claim", is_valid_desc);
   if (!ticket->user_id || !ticket->email || !ticket->description) {
     free_ticket(ticket);
     return NULL;
@@ -60,10 +60,10 @@ void write_ticket(char *filename, ticket_t *ticket) {
     free(filename);
     return;
   }
-  fprintf(file, "Radicado: %d\n", ticket->id);
-  fprintf(file, "Identificación: %s\n", ticket->user_id);
-  fprintf(file, "Correo: %s\n", ticket->email);
-  fprintf(file, "Descripcion Reclamo: %s\n", ticket->description);
+  fprintf(file, "Ticket ID: %d\n", ticket->id);
+  fprintf(file, "User ID: %s\n", ticket->user_id);
+  fprintf(file, "Email: %s\n", ticket->email);
+  fprintf(file, "Claim description: %s\n", ticket->description);
   fclose(file);
   free(filename);
 }
