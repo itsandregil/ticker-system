@@ -51,7 +51,6 @@ void save_ticket(ticket_t *ticket) {
     mkdir("assets", 0700);
   }
   write_ticket(filename, ticket);
-  free_ticket(ticket);
 }
 
 void write_ticket(char *filename, ticket_t *ticket) {
